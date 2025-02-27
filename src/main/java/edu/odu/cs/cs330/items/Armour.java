@@ -33,7 +33,7 @@ public class Armour extends Item {
     /**
      * Enchantment level applied.
      */
-    protected int modiferLevel;
+    protected int modifierLevel;
 
     /**
      * Associated element--e.g., ice, fire, and lightning.
@@ -47,6 +47,13 @@ public class Armour extends Item {
     public Armour()
     {
         // Initialize all data members (including those inherited from Item)
+        super("", false);
+        this.durability = 0;
+        this.defense = 0;
+        this.material = "";
+        this.modifier = null;
+        this.modifierLevel = 0;
+        this.element = "";
     }
 
     /**
@@ -57,6 +64,14 @@ public class Armour extends Item {
     public Armour(Armour src)
     {
         // Set and/or copy data members for *this* object based on *src*.
+        this.name = src.name;
+        this.stackable = src.stackable;
+        this.durability = src.durability;
+        this.defense = src.defense;
+        this.material = src.material;
+        this.modifier = src.modifier;
+        this.modifierLevel = src.modifierLevel;
+        this.element = src.element;
     }
 
     /**
@@ -144,7 +159,7 @@ public class Armour extends Item {
      */
     public int getModifierLevel()
     {
-        return this.modiferLevel;
+        return this.modifierLevel;
     }
 
     /**
@@ -154,7 +169,7 @@ public class Armour extends Item {
      */
     public void setModifierLevel(int level)
     {
-        this.modiferLevel = level;
+        this.modifierLevel = level;
     }
 
     /**
@@ -190,6 +205,12 @@ public class Armour extends Item {
     public void read(Scanner snr)
     {
         super.name   = snr.next();
+        this.material = snr.next();
+        this.durability = Integer.parseInt(snr.next());
+        this.defense = Integer.parseInt(snr.next());
+        this.modifier = snr.next();
+        this.modifierLevel = Integer.parseInt(snr.next());
+        this.element = snr.next();
 
         // Complete this method
     }
@@ -201,7 +222,7 @@ public class Armour extends Item {
     public Item clone()
     {
         // Replace the next line
-        return null;
+        return new Armour(this);
     }
 
     /**
@@ -210,7 +231,16 @@ public class Armour extends Item {
     @Override
     public String toString()
     {
-        return "Implement This Function";
+      return String.join(
+          "",
+          String.format("%s%s%n", "  Nme: ", super.name),
+          String.format("%s%d%n", "  Dur: ", this.durability),
+          String.format("%s%d%n", "  Def: ", this.defense),
+          String.format("%s%s%n", "  Mtl: ", this.material),
+          String.format("%s%s%s%d%s%n", "  Mdr: ", this.modifier, " (Lvl ", this.modifierLevel, ")"),
+          String.format("%s%s%n", "  Emt: ", this.element)
+      );
+        
     }
 }
 
